@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="ja" class="style-version-2 " id="page_id_lesson_show">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<meta charset="UTF-8">
+<title>#06 共通のスタイルを切り出しておこう | 実践！ウェブサイトを作ろう - プログラミングならドットインストール</title>
+<meta name="description" content="実践！ウェブサイトを作ろうの#6回: 共通のスタイルを切り出して他の箇所でも使えようにしておきます。">
+<meta name="author" content="dotinstall">
+<meta name="copyright" content="Copyright (C) dotinstall.com">
+
+
+<!--
+
+[エンジニア、プログラマのあるある話]
+
+"IE爆発しろ"
+
+投稿は Twitter / @dotinstall までお寄せください。
+
+-->
+
+<link rel="canonical" href="https://dotinstall.com/lessons/website_html_v3/45506">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple_touch_icon_180x180.png">
+<link rel="index" href="/">
+<link rel="stylesheet" href="/css/cf.css?v=20190611">
+<link rel="alternate" type="application/rss+xml" title="新着レッスンRSS" href="/lessons.rss">
+<link rel="alternate" type="application/rss+xml" title="新着補足情報RSS" href="/lessons/knowledge.rss">
+<script src="/js/jquery-1.10.2.min.js"></script>
+
+<!--[if lt IE 9]>
+<script src="/js/html5shiv.js"></script>
+<![endif]-->
+
+<link rel="stylesheet" href="/css/jquery.circliful.css">
+<link rel="stylesheet" href="/css/bootstrap_328.css?v=20130813">
+<link rel="stylesheet" href="/css/font-awesome-4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/dotinstall-icons/css/dotinstall-icons.css?v=20170508">
+<link href="/css/highlight/github-gist.css" rel="stylesheet">
+
+
+<link href="/css/video-js.min.css?v=20180704" rel="stylesheet">
+<link href="/css/videojs-change-speed-premium.css?v=20180704" rel="stylesheet">
+<link href="/css/videojs-quality-selector.css?v=20180710" rel="stylesheet">
+<link href="/css/videojs-card.css?v=20180704" rel="stylesheet">
+<link href="/css/videojs-voice-selector.css?v=20180704" rel="stylesheet">
+<link href="/css/videojs-dotinstall-custom.css?v=20180717a" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/dotinstall.css?v=20190716">
+<link rel="stylesheet" href="/css/immersive-responsive.css?v=20181024">
+
+
+<link rel="stylesheet" href="/css/package-201905.css?v=20190707a">
+
+<style>
+html, body { min-width: 520px; }
+</style>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-26578182-1', 'dotinstall.com');
+
+ga('set', 'userId', 'a2d37320f1b2437eaa6681071ea1fbe3ae846c92');
+
+ga('require', 'displayfeatures');
+ga('send', 'pageview');
+</script>
+
+
+<script src="/js/bootstrap_328.min.js"></script>
+<script src="/js/underscore.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+<script src="/js/main.js?v=20190511"></script>
+<script src="/js/bundle.min.js?v=20190603"></script>
+<script src="/js/dotinstall.bundle.min.js?v=20190716"></script>
+
+
+
+
+<!-- Open Graph -->
+<meta property="og:title" content="#06 共通のスタイルを切り出しておこう | 実践！ウェブサイトを作ろう">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://dotinstall.com/lessons/website_html_v3/45506">
+<meta property="og:site_name" content="ドットインストール">
+<meta property="og:description" content="共通のスタイルを切り出して他の箇所でも使えようにしておきます。">
+<meta property="og:image" content="https://i.vimeocdn.com/video/701383206_960x540.jpg?r=pad">
+<meta property="og:locale" content="ja_JP">
+<meta property="fb:admins" content="569511872">
+<meta property="fb:app_id" content="128241633952367">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@dotinstall">
+<meta name="twitter:title" content="#06 共通のスタイルを切り出しておこう | 実践！ウェブサイトを作ろう">
+<meta name="twitter:description" content="共通のスタイルを切り出して他の箇所でも使えようにしておきます。">
+<meta name="twitter:image" content="https://i.vimeocdn.com/video/701383206_960x540.jpg?r=pad">
+
+</head>
+<body  style="min-height:1000px;">
+
+<style>
+.container.immersive #main {
+    min-width: 520px;
+}
+.container.immersive #sidebar {
+    width: 640px;
+}
+</style>
+<script>
+(function() {
+    'use strict';
+
+    Dotinstall.sizes.MAIN_TOP_PADDING = 16;
+    Dotinstall.sizes.MAIN_HORIZONTAL_PADDING = 48 + 16 + 16;
+
+    Dotinstall.sizes.main = {
+        minWidth: 520 + Dotinstall.sizes.MAIN_HORIZONTAL_PADDING
+    };
+
+    Dotinstall.sizes.sidebar = {
+        width: 640,
+        minWidth: 400
+    };
+
+    Dotinstall.sizes.player = {
+        minWidth: 520
+    };
+
+})();
+</script>
+
+<div id="fb-root" style="display:none;"></div>
+
+<div class="navbar navbar-fixed-top no-top-border  dotinstall-normal-topbar" id="lesson_show_page">
+
+
+<div class="navbar-inner">
+<div id="topbar_inner_container" class="container wide fit-to-left">
+
+<h1 class="premiumLogo">
+<a href="/"><span>ドットインストール - 3分動画でマスターできるプログラミング学習サービス</span></a>
+</h1>
+
+<ul class="nav" id="global_menu" style="position:relative;font-size:12px;">
+<li class=" disappear"><a href="/home">マイページ</a></li>
+<li class="active movable" data-menu-index="1"><a href="/lessons">レッスン一覧</a></li>
+<li class=" movable" data-menu-index="2"><a href="/premium"><span style="font-weight:bold;color:#f39800;">プレミアム会員</span></a></li>
+<li class=" movable" data-menu-index="3"><a href="/business">法人でのご利用</a></li>
+<li>
+<form action="https://dotinstall.com/search" id="topbar_search" class="form pull-left enable-incremental-lesson-search" onsubmit="if ($(this).find('.q').val() === '') { return false; }">
+<div class="input-append" style="padding:12px 0 0 0;">
+<div class="btn-group">
+<input type="text" style="font-size:12px;" placeholder="ソースコード、レッスンを検索" name="q" class="q" id="q_in_topbar" value="" autocomplete="off">
+<input type="hidden" name="f" value="topbar">
+<button type="submit" class="btn"><i class="icon-search"></i></button>
+</div>
+</div>
+<div id="incremental"></div>
+</form>
+
+</li>
+</ul><!-- /.nav -->
+
+<ul class="nav pull-right topbar-right-nav" id="global_pulldown">
+  <li class="dropdown">
+<b class="caret"></b>
+<a href="#" class="dropdown-toggle text-ellipsis" data-toggle="dropdown">
+<img src="/img/bug2.gif" class="topBarIcon">
+<span class="user-name">itsmedachan</span>
+</a>
+
+<ul id="global_dropdown_menu" class="dropdown-menu">
+<li><a href="/home">マイページ</a></li>
+<li class="divider show-narrowed"></li>
+<li><a href="/users/itsmedachan" id="dropdown_user_profile">プロフィール</a></li>
+<li><a href="https://dotinstall.com/user/settings">設定変更</a></li>
+<li><a href="/help">ヘルプ</a></li>
+
+
+<li class="divider"></li>
+<li><a href="#" onclick="$('#logout-form').submit();">ログアウト</a><form id="logout-form" action="https://dotinstall.com/logout.php" method="post" style="display:none;"><input type="hidden" class="one_time_token" name="one_time_token" value="9cd4d0f576df6f6445b1c02e0dc4ad0551ff12fec71dead97ac3d45452ae406c"></form></li>
+</ul><!-- /dropdown-menu -->
+
+</li>
+
+</ul><!-- /nav pull-right -->
+
+</div><!--/container -->
+</div><!-- /navbar-inner -->
+</div><!-- /navbar -->
+
+
+<div class="container immersive">
+
+<div class="row">
+<div class="span13" id="main" style="position:relative;visibility:hidden;">
+
+<div id="main_contents" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+<div id="breadcrumb_wrapper">
+<ul class="light-color-breadcrumb" id="breadcrumb">
+<li><a href="/home"><i class="fa fa-home"></i></a></li>
+<li><a href="/lessons">レッスン一覧</a></li>
+<li><a href="/lessons/website_html_v3">実践！ウェブサイトを作ろう</a></li>
+<li>#06 共通のスタイルを切り出しておこう</li>
+</ul>
+</div>
+
+<div class="wide-notice">
+
+
+</div><!-- /wide-notice -->
+
+<meta itemprop="name" content="#06 共通のスタイルを切り出しておこう">
+<meta itemprop="duration" content="PT2M0S">
+<meta itemprop="thumbnailUrl" content="https://i.vimeocdn.com/video/701383206_200x150.jpg?r=pad">
+<meta itemprop="uploadDate" content="2018-05-17T16:11:19+09:00">
+
+<div id="video_section" class="mb15 posr" style="clear:both;"><!-- video section start -->
+
+<div id="video_error_message" class="alert alert-warning" style="display:none;">
+動画の読み込みに失敗しました。しばらく待ってからリロードしてみてください。解決しない場合は<a href="/help#video_trouble" target="_blank">ヘルプの「動画が見られない場合について」</a>もご覧ください。
+</div>
+<script id="vjs_center_card_template" type="text/template" data-tracking-label="video/end/question"><!--
+<h4 class="vjs-center-card-header">レッスンで分からないところはありましたか？</h4>
+<p>分からなかったところを先生に質問してみましょう。</p>
+<p>質問はページ右下の丸いボタンからご利用ください。</p>
+--></script>
+
+<script src="/js/video.min.js?v=20190606"></script>
+
+<script>
+    videojs.options.flash.swf = "http://dotinstall.com/video-js.swf";
+</script>
+
+<script src="/js/videojs-progress-helper.js?v="></script>
+
+<script src="/js/videojs-quality-selector.js?v=20180704"></script>
+<script src="/js/cards/website_html_v3.js?v=1560702123"></script>
+<script src="/js/videojs-card.js?v=20180704"></script>
+
+<script src="/xs/js/videojs.speed?v=20180704"></script>
+<script src="/xs/js/videojs-voice-selector?v=20180704"></script>
+
+
+<video style="opacity:0;" id="videojs_player" class="video-js vjs-default-skin"
+       controls controlsList="nodownload" width="768" height="432"             oncontextmenu="return false;" preload="auto" >
+  <source src="https://player.vimeo.com/external/270306488.hd.mp4?s=86bf06cfc242ca60d55f1a846a889465c2c0562e&amp;profile_id=174&amp;oauth2_token_id=56271471" data-res="720" data-voice="m" type="video/mp4">
+  <source src="https://player.vimeo.com/external/270306488.sd.mp4?s=89bd490d38075075106b92bd2a59f71c707da283&amp;profile_id=164&amp;oauth2_token_id=56271471" data-res="360" data-voice="m" type="video/mp4">
+      <source src="https://player.vimeo.com/external/280668151.hd.mp4?s=bc05cbc6a161f952f8b1bc94af0626d6cdac93c0&amp;profile_id=174&amp;oauth2_token_id=56271471" data-res="720" data-voice="w" type="video/mp4">
+    <source src="https://player.vimeo.com/external/280668151.sd.mp4?s=20305250e4424c2e6d938ef9326d2987b301d065&amp;profile_id=164&amp;oauth2_token_id=56271471" data-res="360" data-voice="w" type="video/mp4">
+  </video>
+
+<script>Dotinstall.resize.player.exec();</script>
+
+<script>
+HMHM.movie.availableQualities = ['720', '360'];
+HMHM.movie.hasWomanVoice = true;
+</script>
+
+
+
+<script>
+$(function() {
+    if ($('#vimeo_player')[0]) {
+        if (window.addEventListener) {
+            window.addEventListener('message', HMHM.movie.vimeo.onMessageReceived, false);
+        } else {
+            window.attachEvent('onmessage', HMHM.movie.vimeo.onMessageReceived);
+        }
+    }
+});
+</script>
+
+
+
+<div class="videoCommands">
+    <a class="btn lh24 flr" id="toggle_text"><span class="showText">文字起こしを<span id="toggle_text_label">表示する</span></span></a>
+
+    <a href="/lessons/website_html_v3/45505" class="btn lh24 " style="font-size:10px;">&laquo; 前へ</a>
+            <button id="lesson-complete-button" class="btn lh24" style="font-size:13px;font-weight:bold;width:176px;min-width:150px;">
+          <span id="completeButtonLabel" >
+            完了          </span>
+        </button>
+        <a href="/lessons/website_html_v3/45507"       class="btn lh24 "
+       id="go_to_next_video" style="font-size:10px;">次へ &raquo;</a>
+</div><!-- /videoCommands -->
+
+<div id="caption_base_top" data-is-premium="true"></div><!-- don't remove! -->
+<div id="caption_wrapper">
+
+  
+          <div id="caption" style="height:170px;overflow-y:scroll;">
+        <div class="caption-revert-auto-scroll">自動スクロールを再開</div>
+
+        
+                  <div class="caption-row" data-time="0:02">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">0:02</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                さてここまでうまくいきましたが、続くセクションでも使っているスタイルを切り出して、あとで使えるようにしておきましょう。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="0:09">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">0:09</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                まず、続くセクションでもある程度の幅を持って、中央揃えになっているので .container のスタイルを切り出しておきたいと思います。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="0:18">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">0:18</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                では共通のスタイルは上の方に書いておきましょう。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="0:23">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">0:23</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                ではこのあたりに container クラスを作ってあげて、中央揃えや幅の設定をざっと移動させてあげましょう。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="0:37">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">0:37</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                このあたりですね。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="0:39">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">0:39</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                header .container { position: relative; } は絶対配置のために使うので、そのまま残しておきましょう。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="0:46">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">0:46</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                ではこちらに貼り付けてあげます。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="0:49">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">0:49</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                それからページ共通のスタイルと header のスタイルを分けておくとわかりやすいので、このあたりに /* header */ としてあげて header 関連のスタイルは、その下に移動させましょう。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="1:02">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">1:02</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                これでわかりやすいかと思います。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="1:04">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">1:04</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                それから、こちらの完成版を見るとヘッダーとこちらの下のセクションで背景画像が一緒なので、そのあたりのスタイルも切り出しておいてあげます。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="1:16">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">1:16</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                では今回 orange-bg というクラスを作ってあげて、その中に背景画像の設定を移動させてあげましょう。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="1:27">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">1:27</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                こちらを移動させてあげれば OK かと思います。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="1:31">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">1:31</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                もうスタイルがなくなったので header { ... } は消しておいてあげましょう。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="1:36">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">1:36</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                これで移動させてあげて、あとはこちらのクラスを header に付けてあげれば、背景画像が付くはずですね。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+                  <div class="caption-row" data-time="1:45">
+            <div class="cinfo"><span class="iconSound none"><a href="#" class="cinfo-link">1:45</a></span></div>
+            <div class="cbody-liquid ">
+              <div class="cbody">
+                ではこれで OK かと思うので見てあげると&hellip;、こうですね、 OK そうなので続きは次回にしていきましょう。              </div><!-- /.cbody -->
+            </div><!-- /.cbody-liquid -->
+          </div><!-- /.caption-row -->
+        
+        
+        <div id="caption_bottom_space"></div>
+      </div><!-- /caption -->
+
+      </div><!-- /caption_wrapper -->
+<div id="caption_handle"><i class="icon-align-justify icon-gray"></i></div>
+
+<script>
+(function() {
+    if (HMHM.cookie.get('display_caption') === null || HMHM.cookie.get('display_caption') == 1) {
+        $('#caption_wrapper').show();
+        $('#caption_handle').show();
+        $('#toggle_text_label').text('閉じる');
+    } else {
+        $('#caption_wrapper').hide();
+        $('#caption_handle').hide();
+        $('#toggle_text_label').text('表示する');
+    }
+})();
+</script>
+
+</div><!-- //video_section -->
+
+<ul class="nav nav-tabs" id="lesson_tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary" onclick="ga('send', 'event', 'Tabs', 'Click', 'lesson/show/movie');">この動画について<span class="s10">&nbsp;</span></a>
+</li>
+<li id="question_tab">
+<a data-toggle="tab" href="#question" onclick="ga('send', 'event', 'Tabs', 'Click', 'lesson/show/faq');">よくある質問 <span class="s10">(0)</span></a>
+</li>
+<li id="source_code_tab">
+<a data-toggle="tab" href="#source" id="tab_source" onclick="ga('send', 'event', 'Tabs', 'Click', 'lesson/show/source');">ソースコード<span class="s10">&nbsp;</span></a>
+</li>
+<li id="material_tab">
+<a data-toggle="tab" href="#material" onclick="ga('send', 'event', 'Tabs', 'Click', 'lesson/show/material');">素材<span class="s10">&nbsp;</span></a>
+</li>
+<li id="demo_tab">
+<a data-toggle="tab" href="#demo" onclick="ga('send', 'event', 'Tabs', 'Click', 'lesson/show/demo');">デモ<span class="s10">&nbsp;</span></a>
+</li>
+</ul>
+
+<div class="tab-content" style="min-height:300px;">
+
+<div class="tab-pane active posr" id="summary">
+
+<div id="video_summary">
+<p itemprop="description" id="lesson_description">共通のスタイルを切り出して他の箇所でも使えようにしておきます。</p>
+
+<ul id="lesson_summary">
+    <li class="lh18">共通スタイルの切り出し</li>
+</ul>
+
+</div><!-- /video_summary -->
+
+<p class="txr mb15"><a href="/contact?ru=/lessons/website_html_v3/45506" rel="nofollow" class="caaa s11">このレッスンの問題を報告する</a></p>
+
+
+
+</div><!-- /movie -->
+
+<div id="question" class="tab-pane" style="margin-bottom:48px;">
+
+
+
+<p>実践！ウェブサイトを作ろう にはよくある質問はありません。</p>
+<p>分からなかったところは画面右下の質問ボタンから先生に質問できます。 <img src="/img/premium_tag.png" alt="PREMIUM"></p>
+
+
+
+
+
+
+<p><a href="/q/new?ref=/lessons/website_html_v3/45506" class="btn di-btn-blue">この動画について質問する</a></p>
+<span class="remaining-times">2019年09月03日までにあと <span class="fwb">5</span> 回質問できます。</span>
+
+
+
+
+</div>
+<!-- question-tab -->
+
+<div id="material" class="tab-pane">
+<div class="materials">
+<p>今回のレッスンで使用している素材ファイルです。右クリックメニューからダウンロードしてご利用ください。</p>
+<div class="sourceBox">
+<span class="fwb material-file-path" title="MyDotinstallPane/favicon.ico">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/favicon.ico" target="_blank">
+MyDotinstallPane/favicon.ico
+</a>
+</span>
+</div>
+<div class="material">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/favicon.ico" target="_blank">
+<img src="https://dotinstall.com/samples/website_html_v3/45506/MyDotinstallPane/favicon.ico">
+</a>
+</div>
+<div class="sourceBox">
+<span class="fwb material-file-path" title="MyDotinstallPane/img/bg.png">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/bg.png" target="_blank">
+MyDotinstallPane/img/bg.png
+</a>
+</span>
+</div>
+<div class="material">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/bg.png" target="_blank">
+<img src="https://dotinstall.com/samples/website_html_v3/45506/MyDotinstallPane/img/bg.png">
+</a>
+</div>
+<div class="sourceBox">
+<span class="fwb material-file-path" title="MyDotinstallPane/img/feature1.png">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/feature1.png" target="_blank">
+MyDotinstallPane/img/feature1.png
+</a>
+</span>
+</div>
+<div class="material">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/feature1.png" target="_blank">
+<img src="https://dotinstall.com/samples/website_html_v3/45506/MyDotinstallPane/img/feature1.png">
+</a>
+</div>
+<div class="sourceBox">
+<span class="fwb material-file-path" title="MyDotinstallPane/img/feature2.png">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/feature2.png" target="_blank">
+MyDotinstallPane/img/feature2.png
+</a>
+</span>
+</div>
+<div class="material">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/feature2.png" target="_blank">
+<img src="https://dotinstall.com/samples/website_html_v3/45506/MyDotinstallPane/img/feature2.png">
+</a>
+</div>
+<div class="sourceBox">
+<span class="fwb material-file-path" title="MyDotinstallPane/img/feature3.png">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/feature3.png" target="_blank">
+MyDotinstallPane/img/feature3.png
+</a>
+</span>
+</div>
+<div class="material">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/feature3.png" target="_blank">
+<img src="https://dotinstall.com/samples/website_html_v3/45506/MyDotinstallPane/img/feature3.png">
+</a>
+</div>
+<div class="sourceBox">
+<span class="fwb material-file-path" title="MyDotinstallPane/img/top.png">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/top.png" target="_blank">
+MyDotinstallPane/img/top.png
+</a>
+</span>
+</div>
+<div class="material">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/top.png" target="_blank">
+<img src="https://dotinstall.com/samples/website_html_v3/45506/MyDotinstallPane/img/top.png">
+</a>
+</div>
+<div class="sourceBox">
+<span class="fwb material-file-path" title="MyDotinstallPane/img/user1.png">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/user1.png" target="_blank">
+MyDotinstallPane/img/user1.png
+</a>
+</span>
+</div>
+<div class="material">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/user1.png" target="_blank">
+<img src="https://dotinstall.com/samples/website_html_v3/45506/MyDotinstallPane/img/user1.png">
+</a>
+</div>
+<div class="sourceBox">
+<span class="fwb material-file-path" title="MyDotinstallPane/img/user2.png">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/user2.png" target="_blank">
+MyDotinstallPane/img/user2.png
+</a>
+</span>
+</div>
+<div class="material">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/user2.png" target="_blank">
+<img src="https://dotinstall.com/samples/website_html_v3/45506/MyDotinstallPane/img/user2.png">
+</a>
+</div>
+<div class="sourceBox">
+<span class="fwb material-file-path" title="MyDotinstallPane/img/user3.png">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/user3.png" target="_blank">
+MyDotinstallPane/img/user3.png
+</a>
+</span>
+</div>
+<div class="material">
+<a href="http://samples.dotinstall.com/s/website_html_v3/45506/MyDotinstallPane/img/user3.png" target="_blank">
+<img src="https://dotinstall.com/samples/website_html_v3/45506/MyDotinstallPane/img/user3.png">
+</a>
+</div>
+</div>
+
+
+</div><!-- /material -->
+
+<div id="source" class="tab-pane">
+
+
+<select class="source-select">
+<option id="source_select_default">ソースコードを選択してください</option>
+<option data-source="/MyDotinstallPane/css/styles.css" data-no-diff="0"
+        data-is-readme="0">/MyDotinstallPane/css/styles.css</option>
+<option data-source="/MyDotinstallPane/index.html" data-no-diff="0"
+        data-is-readme="0">/MyDotinstallPane/index.html</option>
+</select>
+
+<div class="each-source-area-wrapper">
+
+<div class="each_source_area "
+     data-source="/MyDotinstallPane/css/styles.css" data-is-readme="0">
+
+<div class="sourceBox">
+<div class="flr" style="margin-top:-3px;">
+<a href="https://dotinstall.com/lessons/website_html_v3/45506/diff?source=/MyDotinstallPane/css/styles.css" class="btn btn-small">自分のコードと比較する</a>
+</div>
+<div class="flr source_copy" style="margin:-3px 3px 0 0;">
+<button class="btn btn-small select-source-button" >ソースコードを選択</button>
+</div><!-- /.source_copy -->
+<div class="flr" style="margin:-3px 3px 0 0;">
+<button class="btn btn-small toggle_diff" >今回の変更点</button>
+</div>
+<span class="fwb source-file-path" title="/MyDotinstallPane/css/styles.css">/MyDotinstallPane/css/styles.css</span>
+</div><!-- /.sourceBox -->
+
+<div class="source-editor" id="source_editor_0"
+     data-filename="/MyDotinstallPane/css/styles.css" data-no-diff="0">body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+  color: #333;
+  margin: 0;
+}
+
+.container {
+  width: 820px;
+  margin: 0 auto;
+  padding: 60px 0;
+}
+
+.orange-bg {
+  color: #fff;
+  background: url(../img/bg.png);
+  background-size: cover;
+}
+
+/* header */
+
+header h1 {
+  margin-top: 0;
+  font-weight: normal;
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+header p {
+  margin-top: 0;
+  margin-bottom: 50px;
+}
+
+header .container {
+  position: relative;
+}
+
+header img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.btn {
+  display: inline-block;
+  width: 290px;
+  background: #fff;
+  color: #f39800;
+  text-align: center;
+  text-decoration: none;
+  padding: 8px 0;
+  border-radius: 5px;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1.0;
+}</div>
+
+<div class="source-editor-diff" id="source_editor_diff_0" data-filename=".diff"> body {
+   font-size: 16px;
+   font-family: Verdana, sans-serif;
+   color: #333;
+   margin: 0;
+ }
+
+-header {
++.container {
++  width: 820px;
++  margin: 0 auto;
++  padding: 60px 0;
++}
++
++.orange-bg {
+   color: #fff;
+   background: url(../img/bg.png);
+   background-size: cover;
+ }
+
++/* header */
++
+ header h1 {
+   margin-top: 0;
+   font-weight: normal;
+   font-size: 36px;
+   margin-bottom: 8px;
+ }
+
+ header p {
+   margin-top: 0;
+   margin-bottom: 50px;
+ }
+
+ header .container {
+-  width: 820px;
+-  margin: 0 auto;
+-  padding: 60px 0;
+   position: relative;
+ }
+
+ header img {
+   position: absolute;
+   bottom: 0;
+   right: 0;
+ }
+
+ .btn {
+   display: inline-block;
+   width: 290px;
+   background: #fff;
+   color: #f39800;
+   text-align: center;
+   text-decoration: none;
+   padding: 8px 0;
+   border-radius: 5px;
+   opacity: 0.9;
+ }
+
+ .btn:hover {
+   opacity: 1.0;
+ }</div>
+
+</div><!-- /each_source_area -->
+
+<div class="each_source_area "
+     data-source="/MyDotinstallPane/index.html" data-is-readme="0">
+
+<div class="sourceBox">
+<div class="flr" style="margin-top:-3px;">
+<a href="https://dotinstall.com/lessons/website_html_v3/45506/diff?source=/MyDotinstallPane/index.html" class="btn btn-small">自分のコードと比較する</a>
+</div>
+<div class="flr source_copy" style="margin:-3px 3px 0 0;">
+<button class="btn btn-small select-source-button" >ソースコードを選択</button>
+</div><!-- /.source_copy -->
+<div class="flr" style="margin:-3px 3px 0 0;">
+<button class="btn btn-small toggle_diff" >今回の変更点</button>
+</div>
+<span class="fwb source-file-path" title="/MyDotinstallPane/index.html">/MyDotinstallPane/index.html</span>
+</div><!-- /.sourceBox -->
+
+<div class="source-editor" id="source_editor_1"
+     data-filename="/MyDotinstallPane/index.html" data-no-diff="0">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Dotinstall Paneを使ってみよう&lt;/title&gt;
+  &lt;link rel=&quot;icon&quot; href=&quot;favicon.ico&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://use.fontawesome.com/releases/v5.0.13/css/all.css&quot; integrity=&quot;sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp&quot; crossorigin=&quot;anonymous&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;css/styles.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class=&quot;orange-bg&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;h1&gt;Dotinstall Pane&lt;/h1&gt;
+      &lt;p&gt;
+        ドットインストールを見ながら&lt;br&gt;
+        コーディングができるAtomパッケージ
+      &lt;/p&gt;
+      &lt;a href=&quot;#&quot; target=&quot;_blank&quot; class=&quot;btn&quot;&gt;詳細を見る &lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+      &lt;img src=&quot;img/top.png&quot; width=&quot;480&quot; height=&quot;270&quot; alt=&quot;Dotinstall Paneの画像&quot;&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+
+<div class="source-editor-diff" id="source_editor_diff_1" data-filename=".diff"> &lt;!DOCTYPE html&gt;
+ &lt;html lang=&quot;ja&quot;&gt;
+ &lt;head&gt;
+   &lt;meta charset=&quot;utf-8&quot;&gt;
+   &lt;title&gt;Dotinstall Paneを使ってみよう&lt;/title&gt;
+   &lt;link rel=&quot;icon&quot; href=&quot;favicon.ico&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://use.fontawesome.com/releases/v5.0.13/css/all.css&quot; integrity=&quot;sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp&quot; crossorigin=&quot;anonymous&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;css/styles.css&quot;&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+-  &lt;header&gt;
++  &lt;header class=&quot;orange-bg&quot;&gt;
+     &lt;div class=&quot;container&quot;&gt;
+       &lt;h1&gt;Dotinstall Pane&lt;/h1&gt;
+       &lt;p&gt;
+         ドットインストールを見ながら&lt;br&gt;
+         コーディングができるAtomパッケージ
+       &lt;/p&gt;
+       &lt;a href=&quot;#&quot; target=&quot;_blank&quot; class=&quot;btn&quot;&gt;詳細を見る &lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+       &lt;img src=&quot;img/top.png&quot; width=&quot;480&quot; height=&quot;270&quot; alt=&quot;Dotinstall Paneの画像&quot;&gt;
+     &lt;/div&gt;
+   &lt;/header&gt;
+ &lt;/body&gt;
+ &lt;/html&gt;</div>
+
+</div><!-- /each_source_area -->
+
+
+</div><!-- /.each-source-area-wrapper -->
+
+<p class="txr"><a href="/contact?ru=/lessons/website_html_v3/45506" rel="nofollow" class="caaa s11">このレッスンの問題を報告する</a></p>
+
+</div><!-- /source -->
+
+<div id="demo" class="tab-pane">
+
+
+
+<p>このプログラムのデモは別ウィンドウで開きます。</p>
+<p><a href="http://samples.dotinstall.com/website_html_v3/45506/MyDotinstallPane/index.html" class="btn lh24" id="go_to_demo_btn" target="_blank" rel="nofollow" style="font-size:12px;">このプログラムのデモを見る</a></p>
+
+</div><!-- /demo -->
+
+</div><!-- /tab-content -->
+
+</div><!-- /itemprop -->
+
+</div><!-- /main -->
+
+<script>
+(function() {
+    // Sidebar has not been presented yet.
+    var SIDEBAR_WIDTH = 640;
+
+    if (Dotinstall.layout.mustBeSingleCol()) {
+        // シングルカラム
+        // window.innerWidth にすると 686px の時に少し大きくなってしまう
+        $('#main').width(
+            $(window).width() - Dotinstall.sizes.MAIN_HORIZONTAL_PADDING
+        );
+    } else {
+        // ダブルカラム
+        //console.log('__else', window.innerWidth, $(window).width());
+        $('#main').width(
+            $(window).width() - SIDEBAR_WIDTH - Dotinstall.sizes.MAIN_HORIZONTAL_PADDING
+        );
+    }
+
+    Dotinstall.resize.player.exec();
+
+    
+    $('#main').css({
+        visibility: 'visible'
+    });
+})();
+</script>
+
+<div id="sidebar" >
+
+<div id="sidebar_contents">
+
+
+
+<div class="sbox responsive-box hidden">
+
+<h2 class="text-ellipsis side-package-name">
+<a href="/lessons/website_html_v3">
+実践！ウェブサイトを作ろう
+</a>
+</h2>
+
+<div class="sboxInner">
+<div class="clearfix">
+<div id="lesson_stat_graph">
+<div id="myStat"
+     data-dimension="80"
+     data-text="0%"
+     data-width="12"
+     data-percent="0"
+     data-fgcolor="#5eb95e">
+</div><!-- /myStat -->
+</div><!-- /lesson_stat_graph -->
+<div id="lesson_stat_summary" class="s12">
+<dl class="packageInfo">
+<dt>完了レッスン数</dt>
+<dd><span id="completed_lesson_count" class="s12b">0</span> / 16 回</dd>
+<dt>完了率</dt>
+<dd>
+<strong>
+<span id="complete_average">0</span>
+</strong> %
+</dd>
+<dt>あなたの閲覧数</dt>
+<dd><strong><span id="history_count">0</span></strong> 回</dd>
+</dl>
+</div><!-- /lesson_stat_summary -->
+</div><!-- /clearfix -->
+</div><!-- /sboxInner -->
+</div><!-- /sbox -->
+
+<!-- 学習メモ -->
+<div class="sbox responsive-box hidden">
+
+<a id="toggle_memo" class="sbox-toggle sbox-open">
+<i class="fa fa-chevron-up"></i>
+<i class="fa fa-chevron-down"></i>
+</a><!-- /sbox-toggle -->
+
+<h2>学習メモ</h2>
+<div id="memo_form" class="clearfix" style="">
+<div id="memo_body">
+<textarea class="codeFont" id="memo" placeholder="このメモは他の人には公開されません。"
+          ></textarea>
+</div>
+<div id="memo_footer">
+<button id="memo_save_button" class="btn btn-small lh24" onclick="HMHM.memo.save(true);"
+        >内容を保存する</button>
+<span class="sysMsg" id="memo_sysmessage">保存しました</span>
+</div>
+</div><!-- /memo_form -->
+
+</div><!-- /sbox -->
+
+<!-- この動画について -->
+<div class="sbox responsive-box hidden">
+<h2>この動画について</h2>
+<div class="sboxInner">
+<dl class="about-video">
+
+<dt>最終更新日</dt>
+<dd>
+2018年5月17日
+</dd>
+
+<dt>バージョン情報</dt>
+<dd>
+HTML / CSS</dd>
+
+<dt>関連キーワード <span class="s10">(5)</span></dt>
+<dd>
+<span class="tags"><a href="/lessons/search#!/filter/%E5%9F%BA%E7%A4%8E%E8%AC%9B%E5%BA%A7">基礎講座 <span class="s10">(262)</span></a></span>
+<span class="tags"><a href="/lessons/search#!/filter/%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91">初心者向け <span class="s10">(266)</span></a></span>
+<span class="tags"><a href="/lessons/search#!/filter/HTML">HTML <span class="s10">(60)</span></a></span>
+<span class="tags"><a href="/lessons/search#!/filter/CSS">CSS <span class="s10">(69)</span></a></span>
+<span class="tags"><a href="/lessons/search#!/filter/%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B5%E3%82%A4%E3%83%88%E6%A7%8B%E7%AF%89">ウェブサイト構築 <span class="s10">(129)</span></a></span>
+</dd>
+
+</dl><!-- /.about-video -->
+</div><!-- /sboxInner -->
+</div><!-- /sbox -->
+
+</div><!-- /sidebar_contents -->
+
+</div><!-- /sidebar -->
+
+<div id="overlay_sidebar" class="fold">
+
+<div id="overlay_sidebar_contents">
+
+<h2 class="text-ellipsis" id="side_package_name_header">
+<span id="fold_sidebar_box" class="flr">
+<i class="fa fa-chevron-left caaa flr" id="fold_sidebar"></i>
+</span>
+<i class="fa fa-chevron-right caaa" id="unfold_sidebar"></i>
+<a href="/lessons/website_html_v3" id="side_package_name">
+  実践！ウェブサイトを作ろう
+</a>
+</h2>
+
+<!-- h2 id="video_list_header" class="ovs-list-header accordion" data-accordion="side_lessons" -->
+<h2 id="video_list_header" class="ovs-list-header">
+<label for="autoplay" class="autoplay flr">
+<input type="checkbox" id="autoplay" >
+連続再生を有効にする
+</label>
+
+<i class="fa fa-play-circle ovs-list-header-icon" id="video_list_header_icon"></i>
+<span class="ovs-list-header-str" id="video_list_header_str">
+動画一覧
+<span class="s11">(16)</span>
+</span>
+</h2>
+
+<ul id="side_lessons">
+<li id="lesson_row_45501" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#01
+<a href="/lessons/website_html_v3/45501" class=" lesson_title">ウェブサイトを制作していこう</a>
+</li>
+<li id="lesson_row_45502" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#02
+<a href="/lessons/website_html_v3/45502" class=" lesson_title">ヘッダーのマークアップをしていこう</a>
+</li>
+<li id="lesson_row_45503" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#03
+<a href="/lessons/website_html_v3/45503" class=" lesson_title">ボタンのスタイルを整えよう</a>
+</li>
+<li id="lesson_row_45504" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#04
+<a href="/lessons/website_html_v3/45504" class=" lesson_title">要素の位置を調整していこう</a>
+</li>
+<li id="lesson_row_45505" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#05
+<a href="/lessons/website_html_v3/45505" class=" lesson_title">画像を絶対配置してみよう</a>
+</li>
+<li id="lesson_row_45506" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle current"></i>
+#06
+<a href="/lessons/website_html_v3/45506" class="current lesson_title">共通のスタイルを切り出しておこう</a>
+</li>
+<li id="lesson_row_45507" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#07
+<a href="/lessons/website_html_v3/45507" class=" lesson_title">疑似要素でサブタイトルを作ろう</a>
+</li>
+<li id="lesson_row_45508" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#08
+<a href="/lessons/website_html_v3/45508" class=" lesson_title">スタイルを再利用できるようにしよう</a>
+</li>
+<li id="lesson_row_45509" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#09
+<a href="/lessons/website_html_v3/45509" class=" lesson_title">特徴紹介セクションを作ろう</a>
+</li>
+<li id="lesson_row_45510" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#10
+<a href="/lessons/website_html_v3/45510" class=" lesson_title">要素を左右に振り分けていこう</a>
+</li>
+<li id="lesson_row_45511" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#11
+<a href="/lessons/website_html_v3/45511" class=" lesson_title">特徴紹介セクションを完成させよう</a>
+</li>
+<li id="lesson_row_45512" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#12
+<a href="/lessons/website_html_v3/45512" class=" lesson_title">利用者の声を紹介してみよう</a>
+</li>
+<li id="lesson_row_45513" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#13
+<a href="/lessons/website_html_v3/45513" class=" lesson_title">Flexboxを使って要素を配置しよう</a>
+</li>
+<li id="lesson_row_45514" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#14
+<a href="/lessons/website_html_v3/45514" class=" lesson_title">利用者の声セクションを完成させよう</a>
+</li>
+<li id="lesson_row_45515" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#15
+<a href="/lessons/website_html_v3/45515" class=" lesson_title">最後のセクションを作っていこう</a>
+</li>
+<li id="lesson_row_45516" class="text-ellipsis">
+<i class="fa fa-fw fa-play-circle "></i>
+#16
+<a href="/lessons/website_html_v3/45516" class=" lesson_title">ウェブサイトを完成させよう</a>
+</li>
+</ul>
+
+</div><!-- /#overlay_sidebar_contents -->
+
+</div><!-- /#overlay_sidebar -->
+
+<div id="main_overlay"></div>
+
+</div><!-- /row -->
+</div><!-- /container -->
+
+<div id="resize_handle" class="resize-handle "></div>
+
+
+<input type="hidden" id="package_id" value="455">
+<input type="hidden" id="lesson_id" value="45506">
+<input type="hidden" id="sequence" value="6">
+<input type="hidden" id="user_id" value="408199">
+<input type="hidden" id="user_name" value="itsmedachan">
+<input type="hidden" id="profile_image_url" value="">
+<input type="hidden" id="open_lesson_history" value="1">
+<input type="hidden" id="is_premium" value="0">
+<input type="hidden" class="one_time_token" name="one_time_token" value="9cd4d0f576df6f6445b1c02e0dc4ad0551ff12fec71dead97ac3d45452ae406c">
+
+<div id="footer" class="no-margin-footer ">
+<div id="footer_inner_container" class="container wide fit-to-left">
+<div class="footer-contents" id="footer_logo">
+<div class="txc">
+<img src="/img/footer_logo.png?v=20190611" width="190" height="190" alt="dotinstall">
+</div>
+</div><!-- /footer-contents -->
+<div class="footer-contents" id="footer_about">
+<h3>「ドットインストール」とは？</h3>
+<div style="padding:0 10px 0 20px">
+<p class="s12">3分動画でマスターできるプログラミング学習サービスです。</p>
+<p class="s12">あなたもプログラミングを始めてみませんか？</p>
+</div>
+</div><!-- /footer-contents -->
+<div class="footer-contents">
+<h3>サービスメニュー</h3>
+<ul>
+<li><a href="/lessons">レッスン一覧</a></li>
+<li><a href="/premium">プレミアム会員</a></li>
+<li><a href="/business">法人向けライセンス</a></li>
+<li><a href="/news">運営からのお知らせ</a></li>
+<li><a href="/guide">プログラミング学習ガイド</a></li>
+<li><a href="/help">ヘルプ</a></li>
+</ul>
+<h3>ご利用にあたって</h3>
+<ul>
+<li><a href="/about">このサイトについて</a></li>
+<li><a href="/terms">利用規約</a></li>
+<li><a href="/privacy">プライバシーポリシー</a></li>
+<li><a href="https://company.dotinstall.com" target="_blank">運営企業情報</a></li>
+<li><a href="https://company.dotinstall.com/recruit.html" target="_blank">採用情報</a></li>
+<li><a href="http://blog.dotinstall.com/post/183690977230/notice-on-use-of-contents" target="_blank">教材利用について</a></li>
+<li><a href="https://company.dotinstall.com/news/20150702.html" target="_blank">動画広告について</a></li>
+<li><a href="/contact">お問い合わせ</a></li>
+</ul>
+</div><!-- /footer-contents -->
+<div class="footer-contents">
+<h3>学習支援ツール</h3>
+<ul>
+<li><a href="http://blog.dotinstall.com/post/139045656660/dotinstallpane" target="_blank">Dotinstall Pane</a></li>
+</ul>
+<h3>ソーシャルメディア</h3>
+<ul>
+<li><a href="http://facebook.com/dotinstall">Facebookページ</a></li>
+<li><a href="http://twitter.com/dotinstall">Twitter (@dotinstall)</a></li>
+<li><a href="https://note.mu/dotinstall">公式ブログ</a></li>
+</ul>
+<h3>更新情報</h3>
+<ul class="rss">
+<li><i class="fa fa-rss"></i> <a href="/lessons.rss">新着レッスンRSS</a></li>
+<li><i class="fa fa-rss"></i> <a href="/lessons/knowledge.rss">新着補足情報RSS</a></li>
+</ul>
+</div><!-- /footer-contents -->
+
+</div><!-- /container -->
+
+<p class="copyright">
+Copyright &copy; 2011-2019 dotinstall.com. All Rights Reserved.
+</p>
+
+
+</div><!-- /footer -->
+
+<script src="/js/packages_for_search.js?v=2608208"></script>
+
+            <script id="videojs_onready_script">
+(function(vjs) {
+    var HIGH_RES = 720;
+
+    var defaultResolution = HMHM.movie.videojs.getDefaultPlaybackQuality(HIGH_RES)
+      , defaultVoice      = HMHM.movie.videojs.getDefaultVoice('m')
+      , defaultSpeed      = HMHM.movie.videojs.getCurrentPlaybackSpeed(1.0)
+      , defaultVolume     = HMHM.movie.videojs.getDefaultVolume(0.9)
+      , defaultMuted      = HMHM.movie.videojs.getDefaultMuted()
+      , videoNum          = { "video/mp4": 0, "video/webm": 0 }
+      , forceMimeTypes    = ['video/mp4', 'video/webm']
+      , plugins = {};
+
+    // count video source type
+    $('video').find('source').each(function() {
+        videoNum[$(this).attr('type')]++;
+    });
+
+    // if MP4 only, IE8 and Opera need flash plugin
+    if (videoNum['video/mp4'] > 0 && videoNum['video/webm'] === 0) {
+        if (HMHM.navigator.isIE8 || HMHM.navigator.isOpera) {
+            if (!HMHM.navigator.isAvailableFlash()) {
+                $('#flash_warning').show();
+                return false;
+            }
+        }
+    }
+
+    plugins.Speed = {
+        available_speeds: [2, 1.8, 1.6, 1.4, 1.2, 1, 0.9, 0.8, 0.7],
+        default_speed: defaultSpeed
+    };
+
+    plugins.VoiceSelector = {
+        default_voice: defaultVoice
+    };
+
+    plugins.ResolutionSelector = {
+        force_types: forceMimeTypes,
+        default_res: defaultResolution
+    }
+
+    plugins.ProgressHelper = {
+    };
+
+    plugins.Card = {
+        comment_count: 0
+    };
+
+    vjs('videojs_player', {
+        inactivityTimeout: 200,
+        notSupportedMessage: '動画の読み込みに失敗しました。ブラウザをリロードしてみてください。',
+        plugins: plugins
+    }).ready(function() {
+        var tracking = $(this.el()).data('tracking');
+
+        $(this.el()).css('opacity', 1);
+        $(this.el().firstChild).css('opacity', 1);
+
+        if (HMHM.navigator.isIE8) {
+            setTimeout(function() {
+                HMHM.movie.videojs.player_.play();
+            }, 1);
+        }
+
+        this.on(['tap'], function(e) {
+            if (e.target.id === 'videojs_player_html5_api') {
+                if (this.paused()) {
+                    this.play();
+                } else {
+                    this.pause();
+                }
+
+                if (this.VoiceSelector) {
+                    this.VoiceSelector.hideMenu();
+                }
+            }
+        });
+
+        // hide liveDisplay
+        this.controlBar.liveDisplay.hide();
+
+        // set volume
+        this.volume(defaultVolume);
+
+        // set muted
+        this.muted(defaultMuted);
+
+        this.on('loadeddata', function() {
+            HMHM.movie.videojs.on.loadeddata();
+        });
+
+        this.on('play', function() {
+            HMHM.movie.videojs.on.play();
+
+            if (this.Speed) {
+                this.Speed.change(HMHM.movie.videojs.getCurrentPlaybackSpeed(1.0));
+            }
+
+            if (!HMHM.movie.captionAutoScroll) {
+                $('.caption-revert-auto-scroll').fadeIn();
+            }
+
+            if ($('#volume_alert_mask').is(':visible')) {
+                Dotinstall.player.alert.closeVolumeAlert('website_html_v3');
+            }
+
+            if (tracking === 1 && typeof ga !== 'undefined') {
+                ga('send', 'event', 'Player', 'Click', 'question/new');
+            }
+        });
+
+        this.on('pause', function() {
+            HMHM.movie.videojs.on.pause();
+
+            $('.caption-revert-auto-scroll').fadeOut();
+        });
+
+        this.on('ended', function() {
+            HMHM.movie.videojs.on.ended();
+        });
+
+        this.on('timeupdate', function() {
+            HMHM.movie.videojs.on.timeupdate();
+        });
+
+        this.on('changeRes', function() {
+            HMHM.movie.videojs.on.changeResolution(this.getCurrentRes());
+        });
+
+        this.on('changeVoice', function() {
+            HMHM.movie.videojs.on.changeVoice(this.getCurrentVoice());
+        });
+
+        this.on('change_playback_speed', function() {
+            HMHM.movie.videojs.on.changePlaybackSpeed(this.playbackRate());
+        });
+
+        this.on('volumechange', function() {
+            HMHM.movie.videojs.on.volumeChange(this.volume());
+        });
+
+        this.on('fullscreenchange', function() {
+            if ($(this.el()).hasClass('vjs-my-fullscreen')) {
+                this.removeClass('vjs-my-fullscreen');
+            } else {
+                this.addClass('vjs-my-fullscreen');
+                HMHM.movie.autoplay.logIfOn();
+            }
+
+            Dotinstall.ga.tracking('Player', 'Click', 'fullscreenToggle', this.isFullscreen() === true ? 1 : 0);
+        });
+
+        this.on('error', function(e) {
+            HMHM.movie.videojs.on.error(this.error(), this.currentSrc());
+        });
+
+        this.getChild('controlBar').getChild('muteToggle').on('click', function() {
+            // tracking
+            Dotinstall.ga.tracking('Player', 'Click', 'muteToggle', this.player().muted() === true ? 1 : 0);
+            HMHM.movie.videojs.on.muted(this.player().muted() === true ? 1 : 0);
+        });
+
+        // if #videojs_player element is clicked, move focus to play button
+        $('#videojs_player, .vjs-big-play-button').on('click', function(e) {
+            $('.vjs-play-control.vjs-control').focus();
+        });
+
+        // prevent scroll pressed space key if playing button is active.
+        $(document).keydown(function(e) {
+            if (/( |^)vjs-(playing|paused)( |$)/.test(document.activeElement.className)
+                && e.which === 32)
+            {
+                return false;
+            }
+        });
+
+        HMHM.movie.videojs.playerReady = true;
+        HMHM.movie.videojs.player_ = this;
+        HMHM.movie.ytplayer = HMHM.movie.videojs.player;
+
+        setTimeout(function() {
+            $('.vjs-comment-card').addClass('vjs-card-show');
+        }, 1);
+    });
+})(window.videojs);
+</script>
+      
+<!-- User Insight PCDF Code Start : dotinstall.com -->
+<script type="text/javascript">
+<!--
+var _uic = _uic ||{}; var _uih = _uih ||{};_uih['id'] = 50397;
+_uih['lg_id'] = '3b4936024a746f8b47b99bbf914fce08ce10b17a';
+_uih['fb_id'] = '';
+_uih['tw_id'] = '';
+_uih['uigr_1'] = ''; _uih['uigr_2'] = ''; _uih['uigr_3'] = ''; _uih['uigr_4'] = ''; _uih['uigr_5'] = '';
+_uih['uigr_6'] = ''; _uih['uigr_7'] = ''; _uih['uigr_8'] = ''; _uih['uigr_9'] = ''; _uih['uigr_10'] = '';
+/* DO NOT ALTER BELOW THIS LINE */
+/* WITH FIRST PARTY COOKIE */
+(function() {
+var bi = document.createElement('scri'+'pt');bi.type = 'text/javascript'; bi.async = true;
+bi.src = ('https:' == document.location.protocol ? 'https://bs' : 'http://c') + '.nakanohito.jp/b3/bi.js';
+var s = document.getElementsByTagName('scri'+'pt')[0];s.parentNode.insertBefore(bi, s);
+})();
+//-->
+</script>
+<!-- User Insight PCDF Code End : dotinstall.com -->
+
+<!-- USERGRAM Attributes -->
+<script type="text/javascript">
+window.ugattr = window.ugattr || {};
+ugattr['serviceId'] = '35b9fd57365475015f91f3d73a7e2fcc5bb80499';
+</script>
+<!-- USERGRAM Attributes end -->
+
+<!-- USERGRAM -->
+<script type="text/javascript">
+(function(){var a=window,b=document,c=a.usergram=a.usergram||[],d,e;
+c.l||(c.s=(new Date()).getTime(),c.l=!0,d=b.getElementsByTagName('script')[0],
+e=b.createElement('script'),e.type='text/javascript',e.async=true,
+e.src='//code.usergram.info/js/usergram.js',d.parentNode.insertBefore(e,d))})();
+
+window.usergram=window.usergram||[],window.ugattr=window.ugattr||{};
+usergram.push(['send','UgoHy1-1','pv',ugattr]);
+</script>
+<!-- USERGRAM end -->
+
+
+<script src="/js/jquery.circliful.min.js"></script>
+<script src="/js/highlight.pack.js"></script>
+
+
+<div class="q-float-board" id="q_float_board">
+
+<div class="q-float-board-header">
+<i class="flr fa fa-times q-float-close" id="q_float_close"></i>
+先生に質問してみよう <span class="s11">(試験運用中)</span>
+</div><!-- /.q-flaot-board-header -->
+
+<div class="q-float-board-body">
+
+<ul class="q-float-menu">
+
+
+
+<li class="do-question">
+
+
+<a href="/q/new?ref=/lessons/website_html_v3/45506" id="go_to_question_new">
+<div class="q-float-menu-icon">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+</span>
+</div><!-- /.q-flaot-menu-icon -->
+<div class="q-float-menu-item">
+この動画に関して質問する<br>
+<span class="remaining-times">2019年09月03日までにあと <span class="fwb">5</span> 回質問できます。</span>
+</div><!-- /.q-float-menu-item -->
+</a>
+
+
+</li><!-- /.do-question -->
+
+<li>
+<a href="/home#!questions">
+<div class="q-float-menu-icon">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-list fa-stack-1x fa-inverse"></i>
+<div class="q-float-notify-count"></div>
+</span>
+</div><!-- /.q-flaot-menu-icon -->
+<div class="q-float-menu-item">
+マイページで質問の一覧を確認する
+</div><!-- /.q-float-menu-item -->
+</a>
+</li>
+
+<li>
+<span class="wrapper">
+<div class="q-float-menu-icon">
+<span class="fa-stack fa-lg">
+<i class="fa fa-circle fa-stack-2x"></i>
+<i class="fa fa-search fa-stack-1x fa-inverse"></i>
+</span>
+</div><!-- /.q-flaot-menu-icon -->
+<div class="q-float-menu-item">
+<form action="/search" class="form-inline no-margin" method="get">
+<input type="text" placeholder="よくある質問を検索する" name="q" id="q_float_search_text" class="span3">
+<input type="hidden" name="type" value="faq">
+<button class="btn" id="q_float_search_btn" disabled>検索</button>
+</form>
+</div><!-- /.q-float-menu-item -->
+</span><!-- /wrapper -->
+</li>
+
+
+
+</ul><!-- /.q-float-menu-icon -->
+
+</div><!-- /.q-float-board-body -->
+
+</div><!-- /.q-float-board -->
+
+<div class="q-float-btn init " id="q_float_btn" title="先生に質問してみよう">
+  <i class="fa fa-comments fa-stack-1x fa-inverse"></i>
+  <div class="q-float-notify-count"></div>
+</div>
+
+<script>
+!function() {
+    'use strict';
+
+    if (document.getElementById('q_float_search_text')) {
+        document.getElementById('q_float_search_text').addEventListener('keyup', function() {
+            document.getElementById('q_float_search_btn').disabled = this.value === '';
+        });
+    }
+}();
+</script>
+
+<script>
+$(function() {
+    var playPauseCount = 0;
+    var VIEW_CENTER_CARD_THRES = 18;
+    var displaySidebarResizeGuide = true;
+    var COOKIE_PATH = '/lessons/';
+    var EDITOR_AVAILABLE = false;
+
+    function polling() {
+              var endPoint = 'https://chat.dotinstall.com/production/user_polling/040c0ff966edf1c2a8e4ba0f6715339811f9b784f945844839feee97782696.json?ts=' + Date.now();
+      
+        $.get(endPoint)
+            .done(function(res) {
+                var cnt;
+
+                if (typeof res.updated_questions !== 'undefined') {
+                    cnt = res.updated_questions.length;
+
+                    if (cnt === 0) {
+                        $('.q-float-notify-count').hide();
+                    } else {
+                        if (cnt > 99) {
+                            cnt = 99;
+                        }
+
+                        $('.q-float-notify-count').text(cnt).show();
+                    }
+                }
+            });
+
+        setTimeout(polling, 5000);
+    }
+
+    function controlSidebarResizeGuideDisplay() {
+        if (Dotinstall.layout.mustBeSingleCol()) {
+            // シングルカラムでは非表示
+            $('#ui_guide').hide();
+        } else {
+            if (displaySidebarResizeGuide) {
+                $('#ui_guide').show();
+            }
+
+            if (!Dotinstall.resize.isResizable()) {
+                // リサイズできないサイズでは非表示
+                $('#ui_guide').hide();
+            }
+        }
+    }
+
+    function updateSidebarWidth(width) {
+        // Resize sidebar width
+        $('#sidebar').width(width);
+
+        // Update cookie and object value
+        Dotinstall.layout.updateSidebarSettings(COOKIE_PATH);
+    }
+
+    function adjustSideTerminals() {
+        var terms = document.getElementsByClassName('terminal');
+        var i;
+
+        for (i = 0; i < terms.length; i++) {
+            $(terms[i]).height($(terms[i].parentNode).height());
+            Dotinstall.layout.adjustSideTerminal(terms[i]);
+        }
+    }
+
+    function updateSidebarTop() {
+        Dotinstall.layout.updateSidebarTop(2);
+    }
+
+    /**
+     * ブラウザリサイズ時の調整
+     */
+    function onResizeWindow() {
+        var playerSize;
+
+/*
+        // 優先的に sidebar を幅を変更
+        if ($(window).width() < $('body').width()) {
+            updateSidebarWidth($('body').width() - $('#main').outerWidth());
+        } else {
+            updateSidebarWidth($(window).width() - $('#main').outerWidth());
+        }
+
+        if (
+            // sidebar は狭められないが main はまだ余裕あり
+            $('#sidebar').width() <= Dotinstall.sizes.sidebar.minWidth
+            && $('#main').width() > Dotinstall.sizes.main.minWidth
+        ) {
+            // main の幅を狭める
+            $('#main').width(
+                $(window).width()
+                - $('#sidebar').width()
+                - Dotinstall.sizes.MAIN_HORIZONTAL_PADDING
+            );
+        }
+*/
+
+        // main と sidebar のリサイズ
+        Dotinstall.layout.resizeMainAndSidebar();
+
+        if (Dotinstall.layout.mustBeSingleCol()) {
+            // シングルカラム
+            //console.log('=== Single Column ===');
+
+            $('#main').css({
+                width: 'auto'
+            });
+
+            $('#sidebar').css({
+                top: 'auto',
+                left: 'auto',
+                width: 'auto'
+            });
+
+        } else {
+            // 2カラム
+            //console.log('=== Double Column ===');
+
+            // main の右端にフィットするように sidebar を移動
+            $('#sidebar').offset({
+                left: $('#main').outerWidth()
+            });
+
+            $('#ui_guide_pointer').css({
+                left: $('#main').outerWidth() - $('#ui_guide_pointer').width() / 2 - 0.5,
+                right: 'auto'
+            });
+        }
+
+        Dotinstall.sizes.sidebar.OFFSET_LEFT = $('#sidebar').offset().left;
+
+        updateSidebarTop();
+
+        controlSidebarResizeGuideDisplay();
+
+        Dotinstall.responsive.topbar.apply(true);
+
+        // main の幅が変わる可能性があるので player サイズも変更
+        playerSize = Dotinstall.resize.player.exec();
+
+        // player のサイズが変わるので centerCard の位置も変更
+        Dotinstall.layout.adjustCenterCard(playerSize);
+
+        // パンくずリストの幅
+        Dotinstall.layout.adjustBreadcrumb(playerSize.width);
+
+        Dotinstall.layout.adjustLessonContentsHeight();
+
+        Dotinstall.layout.adjustMainAreaMinHeight();
+
+        Dotinstall.layout.adjustSidebarContentsHeight();
+
+        Dotinstall.layout.adjustEditorModalForIE11();
+
+        //console.log($('#main').outerWidth(), $('#sidebar').outerWidth());
+    }
+
+    Dotinstall.sizes.main.CONTENTS_RATIO = Dotinstall.layout.getMainContentsRatio();
+
+    if (Dotinstall.layout.mustBeSingleCol()) {
+        $('#sidebar').css({
+            left: 0,
+            right: 'auto'
+        });
+    } else {
+        $('#sidebar').css({
+            left: $('#main').outerWidth(),
+            right: 'auto'
+        });
+    }
+
+    updateSidebarTop();
+
+    Dotinstall.editor.detectTabsScrollable();
+
+    $(window).on('resize', function() {
+        onResizeWindow();
+    }).on('scroll', function(e) {
+        if (EDITOR_AVAILABLE) {
+            $('#sidebar').offset({
+                left: Dotinstall.sizes.sidebar.OFFSET_LEFT
+            });
+        }
+    });
+
+    onResizeWindow();
+
+    $('#sidebar').addClass('ready');
+
+    $('#overlay_sidebar').css({
+        top: $('#main').offset().top + 'px'
+    });
+
+    Dotinstall.resize.apply(
+        $('#resize_handle'),
+        $('#main'),
+        $('#sidebar'),
+        function() {
+            $('#resize_handle').addClass('on');
+        },
+        function() {
+            var playerSize;
+
+            Dotinstall.layout.updateSidebarSettings(COOKIE_PATH);
+
+            playerSize = Dotinstall.resize.player.exec();
+
+            Dotinstall.layout.adjustCenterCard(playerSize);
+
+            Dotinstall.layout.adjustBreadcrumb(playerSize.width);
+
+            if ($('#ui_guide').is(':visible')) {
+                displaySidebarResizeGuide = false;
+
+                $('#ui_guide').hide();
+
+                Dotinstall.uiGuide.cookie.sidebarResize();
+
+                                    Dotinstall.uiGuide.done('sidebar_resize');
+                            }
+
+            $('.source-editor').each(function(i) {
+                var editor;
+
+                if (typeof Dotinstall.sources[i] === 'undefined') {
+                    return;
+                }
+
+                editor = Dotinstall.sources[i];
+
+                $(this).height(editor.getSession().getScreenLength() * editor.renderer.lineHeight);
+                editor.resize();
+            });
+
+            $('.source-editor-diff').each(function(i) {
+                var editor;
+
+                if (typeof Dotinstall.diffs[i] === 'undefined') {
+                    return;
+                }
+
+                editor = Dotinstall.diffs[i];
+
+                $(this).height(editor.getSession().getScreenLength() * editor.renderer.lineHeight);
+                editor.resize();
+            });
+
+            adjustSideTerminals();
+
+            if (Dotinstall.editor.isEnabled()) {
+                Dotinstall.editor.resizeAll();
+            }
+
+            Dotinstall.sizes.main.CONTENTS_RATIO = Dotinstall.layout.getMainContentsRatio();
+
+            Dotinstall.sizes.sidebar.OFFSET_LEFT = $('#sidebar').offset().left
+
+            Dotinstall.editor.detectTabsScrollable();
+
+            Dotinstall.layout.adjustEditorModalForIE11();
+        },
+        function() {
+            $('#resize_handle').removeClass('on');
+        }
+    );
+
+    (function() {
+        var watcher = new Dotinstall.resize.watcher(document.getElementById('main_contents'));
+
+        watcher.watchHeightChange(function() {
+            Dotinstall.layout.adjustLessonContentsHeight();
+            Dotinstall.resize.setHandlerOffset();
+        });
+    })();
+
+    (function() {
+        var watcher = new Dotinstall.resize.watcher(document.getElementById('sidebar_contents'));
+
+        watcher.watchHeightChange(function() {
+            Dotinstall.layout.adjustLessonContentsHeight();
+            Dotinstall.resize.setHandlerOffset();
+        });
+    })();
+
+    controlSidebarResizeGuideDisplay();
+
+    if ($('#myStat').circliful) {
+        $('#myStat').circliful();
+    }
+
+  
+    
+
+    if ($('#user_id').val() !== '') {
+        HMHM.movie.isLogin = true;
+
+        // lesson history
+        $.ajax({
+            url: '/lesson/create_history',
+            type: 'POST',
+            data: {
+                user_id: $('#user_id').val(),
+                lesson_id: $('#lesson_id').val(),
+                one_time_token: $('input[name="one_time_token"]:first').val()
+            },
+            timeout: 15000
+        }).done(function(res) {
+            HMHM.movie.historyId = res.history_id;
+            HMHM.lesson.getPackageHistoryCount('website_html_v3');
+        });
+
+        HMHM.lesson.getPackageProgress(
+            'website_html_v3',
+            {
+                completed: function(lesson) {
+                    $('#lesson_row_' + lesson.id).find('a').addClass('done');
+                },
+                notCompleted: function(lesson) {
+                    $('#lesson_row_' + lesson.id).find('a').removeClass('done');
+                },
+                after: function(res) {
+                    $('#completed_lesson_count').text(res.completed_count);
+                    $('#complete_average').text(res.completed_rate);
+
+                    if ($('#myStat').length) {
+                        $('#myStat')
+                            .empty()
+                            .data('text', res.completed_rate + '%')
+                            .data('percent', res.completed_rate)
+                            .circliful();
+                    }
+                }
+            }
+        );
+
+        if (
+            $('#autoplay').is(':checked')
+            && $('#is_premium').val() === '1'
+            && $('video').length === 1
+        ) {
+            $.post('/lesson/prepare_next.json', {
+                user_id: $('#user_id').val(),
+                package_id: $('#package_id').val(),
+                sequence: $('#sequence').val(),
+                one_time_token: $('input[name="one_time_token"]:first').val()
+            });
+        }
+    }
+
+    $('.source-select').on('change', function() {
+        var selected = $(this).find('option:selected');
+
+        if (selected.index() === 0) {
+            $('.each_source_area').show();
+            $('#source_select_default').text('ソースコードを選択してください');
+        } else {
+            $('.each_source_area')
+                .hide()
+                .each(function() {
+                    if ($(this).data('source') === selected.data('source')) {
+                        $(this).show();
+                    }
+                });
+            $('#source_select_default').text('すべてのソースコードを表示する');
+        }
+    });
+
+    
+
+    
+  
+            $('.vjs-center-card').addClass('vjs-card-hidden-strongly');
+
+        $('video').on('click', function() {
+            playPauseCount++;
+
+            if (playPauseCount >= VIEW_CENTER_CARD_THRES) {
+                $('.vjs-center-card').removeClass('vjs-card-hidden-strongly');
+            }
+        });
+
+        $('.vjs-play-control').on('click', function() {
+            playPauseCount++;
+
+            if (playPauseCount >= VIEW_CENTER_CARD_THRES) {
+                $('.vjs-center-card').removeClass('vjs-card-hidden-strongly');
+            }
+        });
+    
+    $('#toggle_memo').click(function(e) {
+        e.preventDefault();
+
+        if ($('#memo_form').is(':visible')) {
+            HMHM.cookie.set('hide_memo', 1, 86400*90*1000, COOKIE_PATH);
+            $('#memo_form').slideUp();
+            $(this).addClass('sbox-close').removeClass('sbox-open');
+        } else {
+            HMHM.cookie.set('hide_memo', '', -86400*1000, COOKIE_PATH);
+            $('#memo_form').slideDown();
+            $(this).removeClass('sbox-close').addClass('sbox-open');
+        }
+    });
+
+    Dotinstall.overlaySidebar.enable();
+
+    });
+
+HMHM.repeat(100, HMHM.movie.monitorCurrentTime);
+</script>
+
+<script src="/js/caption.js?v=20190416"></script>
+
+<script src="/js/ace/src-min-noconflict/ace.js?v=1.4.4"></script>
+<script src="/js/ace/src-min-noconflict/ext-modelist.js?v=1.4.4"></script>
+<script>
+$(function() {
+    'use strict';
+
+    if (typeof window.Dotinstall === 'undefined') {
+        window.Dotinstall = {};
+    }
+
+    Dotinstall.sources = [];
+    Dotinstall.diffs   = [];
+
+    function applyEditor($elem) {
+        var editor;
+
+        editor = ace.edit($elem.attr('id'));
+        editor.getSession().setUseSoftTabs(false);
+        editor.getSession().setUseWorker(false);
+        editor.getSession().setUseWrapMode(true);
+        editor.getSession().setOptions({
+            indentedSoftWrap: false
+        });
+
+        editor.setFontSize(13);
+        editor.container.style.lineHeight = 1.4;
+        editor.renderer.updateFontSize();
+
+        $elem.height(editor.getSession().getScreenLength() * editor.renderer.lineHeight);
+        editor.resize();
+
+        editor.setSelectionStyle('text');
+        editor.setReadOnly(true);
+        editor.setShowPrintMargin(false);
+        editor.setHighlightActiveLine(false);
+        editor.commands.removeCommand('find');
+        editor.commands.removeCommand('showSettingsMenu');
+
+        editor.setTheme('ace/theme/chrome');
+
+        (function() {
+            var modelist = ace.require('ace/ext/modelist');
+            var mode = modelist.getModeForPath($elem.data('filename')).mode;
+
+            if (
+                $elem.data('filename') !== '.diff'
+                && $elem.parents('.each_source_area').data('is-readme') === 1
+            ) {
+                mode = 'ace/mode/ruby';
+            }
+
+            editor.getSession().setMode(mode);
+        })();
+
+        return editor;
+    }
+
+    $('#tab_source').on('shown', function() {
+        $('.source-editor').each(function(i) {
+            if (typeof Dotinstall.sources[i] !== 'undefined') {
+                return;
+            }
+
+            Dotinstall.sources[i] = applyEditor($(this));
+
+            /*if ($(this).data('no-diff') === 1) {
+                $(this).hide();
+            }*/
+        });
+
+        $('.source-editor-diff').each(function(i) {
+            var editor;
+
+            if (typeof Dotinstall.diffs[i] !== 'undefined') {
+                return;
+            }
+
+            editor = applyEditor($(this));
+
+            editor.renderer.on('afterRender', function() {
+                $(editor.renderer.container)
+                    .find('.ace_constant').each(function() {
+                        $(this).parents('.ace_line_group').children('.ace_line').addClass('diff_added');
+                    })
+                .end()
+                    .find('.ace_function').each(function() {
+                        $(this).parents('.ace_line_group').children('.ace_line').addClass('diff_removed');
+                    });
+            });
+
+            Dotinstall.diffs[i] = editor;
+
+            $(this).hide();
+        });
+    });
+});
+</script>
+
+
+
+</body>
+</html>
